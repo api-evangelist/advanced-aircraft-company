@@ -1,0 +1,49 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://advancedaircraftcompany.com/ (sitemap.xml, llms.txt, news index) and
+  https://advancedaircraftcompany.com/wp-json route schema
+name: Advanced Aircraft Company API Lifecycle
+description: >-
+  Advanced Aircraft Company operates no API program, and therefore publishes none of the lifecycle
+  artifacts an API program produces. There is no status page, no deprecation policy, no SLA, no
+  versioning policy and no API changelog. Recorded as measured absences.
+versioning_policy:
+  published: false
+  observed_scheme: path-namespace (wp/v2, aioseo/v1, jetpack/v4, ...)
+  note: >-
+    Namespace versions are inherited from WordPress core and each installed plugin. AAC neither sets
+    nor documents them, and does not control when they change — a plugin update can move a namespace
+    version without any announcement.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No RFC 8594 Sunset or Deprecation header was observed on any response. No deprecation page exists.
+deprecated_operations: []
+sla:
+  published: false
+status_page:
+  published: false
+  url: null
+  note: >-
+    No status.advancedaircraftcompany.com, no Statuspage/Instatus/BetterStack tenant, and no uptime
+    page linked from the site.
+changelog:
+  published: false
+  url: null
+  note: >-
+    The /news/ index is a corporate press-release feed (funding, contracts, board appointments,
+    magazine coverage), not a product or API changelog. Its most recent sitemap lastmod for posts is
+    2024-11-18; the pages sitemap was last modified 2025-12-15.
+support:
+  channel: contact-form
+  url: https://advancedaircraftcompany.com/contact/
+  note: A general "tell us about your long endurance UAS needs" form. No developer support channel.
+site_freshness:
+  post_sitemap_lastmod: '2024-11-18'
+  page_sitemap_lastmod: '2025-12-15'
+  post_count: 29
+  note: Read from sitemap.xml lastmod values and the X-WP-Total header on wp/v2/posts.

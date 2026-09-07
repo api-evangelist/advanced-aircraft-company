@@ -1,0 +1,28 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  npm, PyPI, RubyGems, crates.io, NuGet, Maven Central, pkg.go.dev and Packagist searches for
+  "advanced aircraft company" / "flyaac" / "aac uas"; plus advancedaircraftcompany.com
+name: Advanced Aircraft Company Packages and SDKs
+description: >-
+  Advanced Aircraft Company publishes no client libraries. No first-party package exists in any
+  public registry, there is no GitHub organization, no SDK page, and no source-code link anywhere on
+  the company site or in its press coverage.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_checked:
+- npm
+- PyPI
+- RubyGems
+- crates.io
+- NuGet
+- Maven Central
+- pkg.go.dev
+- Packagist
+notes:
+- >-
+  Any client wanting to consume the site's WordPress REST API would use a generic WordPress client
+  library from a third party; none is authored, endorsed or linked by AAC.
+- >-
+  No `type: SDKs` pointer is emitted in apis.yml, because there is no SDK. An honest zero.

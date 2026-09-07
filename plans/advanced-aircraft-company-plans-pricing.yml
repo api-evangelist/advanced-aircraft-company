@@ -1,0 +1,24 @@
+generated: '2026-09-07'
+method: searched
+source: https://advancedaircraftcompany.com/
+name: Advanced Aircraft Company Plans and Pricing
+description: >-
+  Advanced Aircraft Company publishes no pricing of any kind — not for its aircraft and not for API
+  access. It is a defense and public-safety hardware manufacturer that sells through direct contact
+  and government contract vehicles (AFWERX Direct-to-Phase II, NASA licensing), and the entire site
+  routes commercial interest through contact forms.
+plan_count: 0
+plans: []
+pricing_url: null
+billing_model: direct-sales
+notes:
+- >-
+  The site has no /pricing page. The sitemap lists Home, Team, HAMR, UAS, Greased Lightning, Contact,
+  Customers, Careers and an investor portal — no commerce surface.
+- >-
+  Buyer intake is a form at https://advancedaircraftcompany.com/customers/ ("we will contact you to
+  discuss your application further"). Press coverage notes sales include on-site training, a limited
+  warranty, and optional maintenance and service packages, with no published prices.
+- >-
+  The API surface (the site's own WordPress REST API) is incidental infrastructure and is neither
+  metered nor sold.

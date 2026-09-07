@@ -1,0 +1,136 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  https://advancedaircraftcompany.com/wp-json (route schema),
+  observed response headers and bodies from https://advancedaircraftcompany.com/wp-json/wp/v2/posts
+name: Advanced Aircraft Company API Conventions
+description: >-
+  Cross-cutting runtime semantics of the only API surface Advanced Aircraft Company serves. AAC
+  publishes no developer documentation, so every statement below is read from the machine-readable
+  route schema its host serves or observed directly on a live unauthenticated response. The semantics
+  are WordPress REST API conventions, inherited from the platform rather than designed by AAC.
+auth_style:
+  summary: >-
+    Anonymous for the wp/v2 read surface; WordPress Application Passwords (HTTP Basic) for writes and
+    plugin routes; OAuth 2.1 + PKCE for the MCP endpoint only.
+  see: authentication/advanced-aircraft-company-authentication.yml
+versioning:
+  style: path-namespace
+  pattern: /wp-json/<namespace>/<version>
+  current: wp/v2
+  note: >-
+    Version lives in the namespace segment. 46 namespaces are advertised, each versioning
+    independently (wp/v2, aioseo/v1, jetpack/v4, newfold-ctb/v2, ...). No Accept-header or query
+    versioning. No version negotiation is documented.
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    type: integer
+    default: 1
+    minimum: 1
+  - name: per_page
+    type: integer
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    type: integer
+  - name: order
+    type: string
+    default: desc
+  - name: orderby
+    type: string
+    default: date
+  response_headers:
+  - name: X-WP-Total
+    description: Total number of matching records.
+    observed: '29'
+  - name: X-WP-TotalPages
+    description: Total number of pages at the current per_page.
+    observed: '29'
+  - name: Link
+    description: RFC 8288 link relations. rel="next" and rel="prev" carry the paged URLs.
+    observed: '<https://advancedaircraftcompany.com/wp-json/wp/v2/posts?per_page=1&page=2>; rel="next"'
+  note: >-
+    The paging headers are explicitly CORS-exposed (access-control-expose-headers: X-WP-Total,
+    X-WP-TotalPages, Link), so a browser client can read them.
+sparse_fields:
+  supported: true
+  param: _fields
+  description: Comma-separated list limiting which fields are returned on every wp/v2 resource.
+field_expansion:
+  supported: true
+  mechanism: _embed
+  description: >-
+    WordPress `_embed` inlines linked resources (author, featured media, terms) advertised in each
+    record's _links block. HAL-style link relations are present on every response object.
+metadata:
+  supported: true
+  field: meta
+  description: An open key/value `meta` object is writable on posts and pages.
+request_id_tracing:
+  supported: false
+  note: No request-id, trace-id or correlation header is returned on any observed response.
+error_envelope:
+  shape: '{"code": "<machine_code>", "message": "<human message>", "data": {"status": <http_status>}}'
+  format: wordpress-rest
+  rfc9457: false
+  note: >-
+    Not RFC 9457. No application/problem+json is served anywhere on the surface. See
+    errors/advanced-aircraft-company-problem-types.yml.
+rate_limit_signaling:
+  supported: false
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was observed on any response. See
+    rate-limits/advanced-aircraft-company-rate-limits.yml.
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    No Idempotency-Key header, no client-supplied request token, and no replay-protection mechanism
+    anywhere on the surface. WordPress REST has no idempotency facility, and AAC has added none. A
+    repeated POST to a create route produces a duplicate record. Recorded as coverage: none rather
+    than na because a real mutating surface exists (POST/PUT/PATCH/DELETE on wp/v2 and the plugin
+    namespaces) — it simply has no replay protection.
+reversibility:
+  grade: documented
+  applies_to: WordPress core content deletes (wp/v2 posts, pages, media, comments, blocks, templates)
+  write_surfaces:
+  - operation: DELETE /wp-json/wp/v2/posts/{id}
+    reversal: >-
+      Soft delete by default. The `force` argument is a boolean with default false and the schema
+      description "Whether to bypass Trash and force deletion." A default delete moves the record to
+      Trash (status=trash), from which it is restorable by writing `status` back via
+      POST/PUT/PATCH /wp-json/wp/v2/posts/{id}.
+    window: null
+    window_note: >-
+      NO RETENTION WINDOW IS STATED. WordPress purges Trash on a schedule governed by the site's
+      EMPTY_TRASH_DAYS constant, which is server-side configuration and is not exposed anywhere in the
+      discovery document or in any AAC-published page. The window is therefore unknown and is not
+      asserted here.
+    irreversible_variant: DELETE ...?force=true — permanent, no reversal path.
+    evidence: https://advancedaircraftcompany.com/wp-json
+  - operation: DELETE /wp-json/wp/v2/pages/{id}
+    reversal: Identical soft-delete/Trash semantics; `force` defaults to false.
+    window: null
+    evidence: https://advancedaircraftcompany.com/wp-json
+  grade_reason: >-
+    A reversal path exists and is machine-readable from the schema, but no reversal window is stated
+    by the provider anywhere, so this grades `documented` rather than `verified`.
+  note: >-
+    The anonymously reachable surface is read-only (Allow: GET on the wp/v2 collections), so an
+    unauthenticated agent has nothing to reverse. Reversibility only becomes relevant once an
+    Application Password is issued by a site administrator.
+dry_run_mode:
+  supported: false
+  note: No preview, validate-only, simulate or dry-run parameter exists on any route.
+cross_links:
+  authentication: authentication/advanced-aircraft-company-authentication.yml
+  errors: errors/advanced-aircraft-company-problem-types.yml
+  lifecycle: lifecycle/advanced-aircraft-company-lifecycle.yml
+  rate_limits: rate-limits/advanced-aircraft-company-rate-limits.yml
+  scopes: scopes/advanced-aircraft-company-scopes.yml

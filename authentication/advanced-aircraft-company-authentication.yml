@@ -1,0 +1,65 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  https://advancedaircraftcompany.com/wp-json (authentication block),
+  https://advancedaircraftcompany.com/.well-known/oauth-authorization-server,
+  https://advancedaircraftcompany.com/.well-known/oauth-protected-resource
+name: Advanced Aircraft Company Authentication Profile
+description: >-
+  Advanced Aircraft Company publishes no authentication documentation of its own. This profile is read
+  entirely from machine-readable documents its host actually serves: the `authentication` block of the
+  WordPress REST API discovery root and the two OAuth discovery documents published by the WordPress
+  MCP Adapter. Two distinct schemes are in play on the same origin.
+schemes:
+- id: anonymous-read
+  type: none
+  applies_to: WordPress core content namespace (wp/v2, oembed/1.0)
+  description: >-
+    The public content surface requires no credentials. GET /wp-json/wp/v2/posts, /pages, /media,
+    /categories and /types all return 200 with no Authorization header.
+  verified:
+    url: https://advancedaircraftcompany.com/wp-json/wp/v2/posts?per_page=1
+    http_status: 200
+- id: application-passwords
+  type: http
+  scheme: basic
+  applies_to: >-
+    All write operations and the ~511 plugin/admin routes (aioseo, jetpack, google-site-kit,
+    redirection, wp-rocket, newfold/bluehost, wpforms, wp-abilities, mcp, blu).
+  description: >-
+    WordPress Application Passwords, the only scheme the discovery root advertises. Credentials are
+    issued interactively by a logged-in site administrator; there is no self-service developer signup.
+  authorization_url: https://advancedaircraftcompany.com/wp-admin/authorize-application.php
+  source: wp-json authentication.application-passwords.endpoints.authorization
+  verified:
+    url: https://advancedaircraftcompany.com/wp-json/wp-abilities/v1/abilities
+    http_status: 401
+    response_code: rest_forbidden
+- id: mcp-oauth
+  type: oauth2
+  applies_to: The MCP server at /wp-json/mcp/mcp-oauth-server
+  description: >-
+    OAuth 2.1-shaped authorization code flow with mandatory PKCE, published as RFC 8414 authorization
+    server metadata and RFC 9728 protected resource metadata. Public clients only
+    (token_endpoint_auth_methods_supported is ["none"]). Dynamic client registration is NOT offered;
+    instead client_id_metadata_document_supported is true, so a client identifies itself by a URL
+    pointing at its own metadata document.
+  issuer: https://advancedaircraftcompany.com
+  authorization_endpoint: https://advancedaircraftcompany.com/oauth/authorize
+  token_endpoint: https://advancedaircraftcompany.com/oauth/token
+  revocation_endpoint: https://advancedaircraftcompany.com/oauth/revoke
+  response_types: [code]
+  grant_types: [authorization_code, refresh_token]
+  code_challenge_methods: [S256]
+  bearer_methods_supported: [header]
+  scopes: [mcp]
+  verified:
+    url: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
+    http_status: 401
+    response_code: mcp_unauthorized
+notes:
+- No OpenID Connect. /.well-known/openid-configuration returns 404 with the site's HTML theme shell.
+- No API key scheme, no mutual TLS, no signed requests.
+- >-
+  There is no developer signup. The only account surface on the site is a Simple WP Membership
+  investor portal (/membership-login/), which is unrelated to API access.

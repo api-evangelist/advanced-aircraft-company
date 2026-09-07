@@ -1,0 +1,72 @@
+generated: '2026-09-07'
+method: probed
+source: https://advancedaircraftcompany.com/.well-known/
+name: Advanced Aircraft Company Well-Known Documents
+description: >-
+  Named-path probe of every host this record knows. Two real documents are served: RFC 8414 OAuth
+  authorization server metadata and RFC 9728 OAuth protected resource metadata, both published by the
+  WordPress MCP Adapter running on the corporate site. security.txt, api-catalog and ai-plugin.json
+  return hard 404s. /.well-known/openid-configuration returns HTTP 404 with the site's HTML theme
+  shell, not an OIDC document, and is recorded as a miss. No agent card is served on either path.
+hosts:
+- host: advancedaircraftcompany.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: advanced-aircraft-company-oauth-authorization-server.json
+    note: RFC 8414. issuer https://advancedaircraftcompany.com, PKCE S256, scopes_supported [mcp].
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: advanced-aircraft-company-oauth-protected-resource.json
+    note: >-
+      RFC 9728. 301 redirect to the trailing-slash form, then 200. Names the protected resource
+      https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+    note: Returns the Avada/WordPress HTML theme shell, not an OIDC discovery document. Treated as a miss.
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: www.advancedaircraftcompany.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: advanced-aircraft-company-oauth-authorization-server.json
+    note: Identical body to the apex host; www is an alias of the same WordPress install.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: flyaac.com
+  documents:
+  - path: /
+    status: 200
+    note: >-
+      Alternate company domain named in press coverage. Redirects to advancedaircraftcompany.com and
+      serves the same WordPress install; not probed separately for well-known paths.
+- host: api.advancedaircraftcompany.com
+  documents:
+  - path: /
+    status: 0
+    note: DNS does not resolve. No API subdomain exists.
+- host: docs.advancedaircraftcompany.com
+  documents:
+  - path: /
+    status: 0
+    note: DNS does not resolve. No docs subdomain exists.
+- host: developer.advancedaircraftcompany.com
+  documents:
+  - path: /
+    status: 0
+    note: DNS does not resolve. No developer subdomain exists.

@@ -1,0 +1,29 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  Observed response headers on https://advancedaircraftcompany.com/wp-json/wp/v2/posts?per_page=1
+  and a documentation search of advancedaircraftcompany.com
+name: Advanced Aircraft Company Rate Limits
+description: >-
+  No rate limits are published and none are signaled at runtime. Advanced Aircraft Company has no
+  developer documentation of any kind, and the WordPress REST surface it serves returns no
+  rate-limiting headers on unauthenticated responses.
+limit_count: 0
+limits: []
+response_headers:
+  x_ratelimit: null
+  ratelimit: null
+  retry_after: null
+  observed: >-
+    Response headers on a live 200 were: x-robots-tag, access-control-expose-headers,
+    access-control-allow-headers, x-wp-total, x-wp-totalpages, link, allow, server (Apache). No
+    rate-limit or Retry-After header of any form was present.
+exhaustion_status: null
+notes:
+- >-
+  A per-page ceiling exists and is enforced by the schema rather than by a rate limiter: per_page is
+  an integer with maximum 100 on wp/v2 collection routes. That is a page-size cap, not a rate limit,
+  and is recorded under pagination in conventions/, not here.
+- >-
+  Shared WordPress hosting (Apache, Bluehost/Newfold stack) may impose upstream limits that are
+  invisible to the client and undocumented by AAC. Nothing was observed and nothing is asserted.

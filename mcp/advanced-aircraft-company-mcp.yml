@@ -1,0 +1,75 @@
+generated: '2026-09-07'
+method: probed
+source: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
+name: Advanced Aircraft Company MCP Server
+description: >-
+  A live, OAuth-gated Model Context Protocol server is served from the Advanced Aircraft Company
+  corporate site. It is the WordPress MCP Adapter, surfaced through the WordPress REST API under the
+  `mcp` namespace, and it is advertised through RFC 9728 protected-resource metadata at
+  /.well-known/oauth-protected-resource. It exposes the WordPress Abilities API (wp-abilities/v1)
+  as MCP tools. This is platform-provided capability from an installed WordPress plugin stack (All in
+  One SEO ships an MCP adapter installer; Bluehost/Newfold ships the `blu` variant), not a bespoke
+  agent surface AAC authored, and AAC publishes no documentation for it.
+status: published
+deployment:
+  mode: remote
+  endpoint: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
+  auth: oauth
+  verified: probed
+servers:
+- name: mcp-oauth-server
+  endpoint: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
+  transport: streamable-http
+  methods: [GET, POST, DELETE]
+  auth: oauth
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+    note: >-
+      A well-formed MCP authentication challenge, distinct from the generic WordPress rest_forbidden
+      body returned by the other two endpoints. This is the endpoint named by the RFC 9728 document.
+- name: mcp-adapter-default-server
+  endpoint: https://advancedaircraftcompany.com/wp-json/mcp/mcp-adapter-default-server
+  transport: streamable-http
+  methods: [GET, POST, DELETE]
+  auth: api-key
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+    note: Gated by standard WordPress authentication (application passwords), not the OAuth flow.
+- name: blu-mcp
+  endpoint: https://advancedaircraftcompany.com/wp-json/blu/mcp
+  transport: streamable-http
+  methods: [GET, POST, DELETE]
+  auth: api-key
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+    note: Bluehost/Newfold-branded MCP endpoint from the host's plugin bundle.
+oauth:
+  authorization_server: https://advancedaircraftcompany.com
+  metadata: well-known/advanced-aircraft-company-oauth-authorization-server.json
+  protected_resource: well-known/advanced-aircraft-company-oauth-protected-resource.json
+  authorization_endpoint: https://advancedaircraftcompany.com/oauth/authorize
+  token_endpoint: https://advancedaircraftcompany.com/oauth/token
+  revocation_endpoint: https://advancedaircraftcompany.com/oauth/revoke
+  grant_types: [authorization_code, refresh_token]
+  code_challenge_methods: [S256]
+  scopes: [mcp]
+  dynamic_client_registration: false
+  client_id_metadata_document_supported: true
+tools:
+  count: null
+  note: >-
+    tools/list is auth-gated behind the OAuth flow, so the live tool set and its inputSchemas could
+    not be enumerated anonymously. The tool source is the WordPress Abilities API; GET
+    /wp-json/wp-abilities/v1/abilities also returns 401 (rest_forbidden), so the ability names are
+    likewise not readable without credentials. No tool list is asserted here. AAC publishes no
+    llms.txt tool list to fall back on — its /llms.txt is an All in One SEO site index of posts and
+    pages, containing no API or tool content.
