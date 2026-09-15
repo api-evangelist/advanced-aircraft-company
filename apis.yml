@@ -1,12 +1,12 @@
 aid: advanced-aircraft-company
 name: Advanced Aircraft Company
-description: 'Advanced Aircraft Company (AAC) is a veteran-owned aerospace manufacturer in Hampton,
-  Virginia, founded in 2017 to build long-endurance hybrid fuel-electric VTOL unmanned aircraft systems
-  for commercial, public-safety and defense missions. Its flagship HAMR (Hybrid Advanced Multi-Rotor)
-  UAS flies 3.5+ hours on gas-electric propulsion, and its Greased Lightning tilt-wing is built on
-  technology licensed from NASA Langley Research Center. AAC is a hardware company with no developer
-  program and no product API; its only public machine-readable surface is the WordPress REST API and
-  an OAuth-gated WordPress MCP Adapter server exposed by its own marketing site.'
+description: Advanced Aircraft Company (AAC) is a veteran-owned aerospace manufacturer in Hampton, Virginia,
+  founded in 2017 to build long-endurance hybrid fuel-electric VTOL unmanned aircraft systems for commercial,
+  public-safety and defense missions. Its flagship HAMR (Hybrid Advanced Multi-Rotor) UAS flies 3.5+ hours
+  on gas-electric propulsion, and its Greased Lightning tilt-wing is built on technology licensed from
+  NASA Langley Research Center. AAC is a hardware company with no developer program and no product API;
+  its only public machine-readable surface is the WordPress REST API and an OAuth-gated WordPress MCP
+  Adapter server exposed by its own marketing site.
 url: https://raw.githubusercontent.com/api-evangelist/advanced-aircraft-company/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
@@ -30,16 +30,16 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: advanced-aircraft-company-site-content-api
+- aid: advanced-aircraft-company:advanced-aircraft-company-site-content-api
   name: Advanced Aircraft Company Site Content API
-  description: 'The public WordPress REST API served from the Advanced Aircraft Company corporate site
-    at https://advancedaircraftcompany.com/wp-json. The self-describing route index advertises 647
-    routes across 46 namespaces; the anonymously readable portion is the WordPress core wp/v2 content
-    namespace (posts, pages, media, categories, types) plus oembed/1.0. This is platform-provided
-    surface from WordPress core and installed plugins (All in One SEO, Jetpack, Newfold/Bluehost,
-    WPForms, Redirection, WP Rocket, Google Site Kit) rather than a product API AAC authored, and AAC
-    publishes no developer documentation for it. Recorded here because it is a real, first-party-hosted,
-    machine-readable API surface on the company''s own domain.'
+  description: The public WordPress REST API served from the Advanced Aircraft Company corporate site
+    at https://advancedaircraftcompany.com/wp-json. The self-describing route index advertises 647 routes
+    across 46 namespaces; the anonymously readable portion is the WordPress core wp/v2 content namespace
+    (posts, pages, media, categories, types) plus oembed/1.0. This is platform-provided surface from WordPress
+    core and installed plugins (All in One SEO, Jetpack, Newfold/Bluehost, WPForms, Redirection, WP Rocket,
+    Google Site Kit) rather than a product API AAC authored, and AAC publishes no developer documentation
+    for it. Recorded here because it is a real, first-party-hosted, machine-readable API surface on the
+    company's own domain.
   humanURL: https://advancedaircraftcompany.com/wp-json
   baseURL: https://advancedaircraftcompany.com/wp-json
   position: Producing
@@ -99,20 +99,19 @@ x-enrichment:
 x-coverage:
   state: covered
   reason: no-developer-program
-  detail: >-
-    Advanced Aircraft Company is a hybrid-electric UAS manufacturer with no developer program, no
-    developer portal and no product API; the machine-readable surface profiled here — a 647-route
-    WordPress REST API, an OAuth-gated WordPress MCP Adapter server, RFC 8414/9728 discovery documents
-    and an All in One SEO llms.txt — is entirely platform-provided by its corporate marketing site.
+  detail: Advanced Aircraft Company is a hybrid-electric UAS manufacturer with no developer program, no
+    developer portal and no product API; the machine-readable surface profiled here — a 647-route WordPress
+    REST API, an OAuth-gated WordPress MCP Adapter server, RFC 8414/9728 discovery documents and an All
+    in One SEO llms.txt — is entirely platform-provided by its corporate marketing site.
   evidence:
-    - url: https://advancedaircraftcompany.com/wp-json
-      status: 200
-    - url: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
-      status: 401
-    - url: https://advancedaircraftcompany.com/.well-known/oauth-protected-resource
-      status: 200
-    - url: https://advancedaircraftcompany.com/openapi.json
-      status: 404
-    - url: https://advancedaircraftcompany.com/.well-known/agent-card.json
-      status: 404
+  - url: https://advancedaircraftcompany.com/wp-json
+    status: 200
+  - url: https://advancedaircraftcompany.com/wp-json/mcp/mcp-oauth-server
+    status: 401
+  - url: https://advancedaircraftcompany.com/.well-known/oauth-protected-resource
+    status: 200
+  - url: https://advancedaircraftcompany.com/openapi.json
+    status: 404
+  - url: https://advancedaircraftcompany.com/.well-known/agent-card.json
+    status: 404
   checked: '2026-09-07'
