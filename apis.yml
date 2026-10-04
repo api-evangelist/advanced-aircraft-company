@@ -23,41 +23,26 @@ tags:
 - VTOL
 - Manufacturing
 - Public Safety
-- Content
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: advanced-aircraft-company:advanced-aircraft-company-site-content-api
-  name: Advanced Aircraft Company Site Content API
-  description: The public WordPress REST API served from the Advanced Aircraft Company corporate site
-    at https://advancedaircraftcompany.com/wp-json. The self-describing route index advertises 647 routes
-    across 46 namespaces; the anonymously readable portion is the WordPress core wp/v2 content namespace
-    (posts, pages, media, categories, types) plus oembed/1.0. This is platform-provided surface from WordPress
-    core and installed plugins (All in One SEO, Jetpack, Newfold/Bluehost, WPForms, Redirection, WP Rocket,
-    Google Site Kit) rather than a product API AAC authored, and AAC publishes no developer documentation
-    for it. Recorded here because it is a real, first-party-hosted, machine-readable API surface on the
-    company's own domain.
-  humanURL: https://advancedaircraftcompany.com/wp-json
+- aid: advanced-aircraft-company:advancedaircraftcompany-com-website-wordpress-rest
+  name: Advanced Aircraft Company Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the Advanced Aircraft Company website at advancedaircraftcompany.com:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
   baseURL: https://advancedaircraftcompany.com/wp-json
-  position: Producing
   tags:
-  - Content
-  - CMS
   - WordPress
+  x-surface: platform-generated
   properties:
-  - type: X-WordPressRESTRoutes
-    url: contracts/advanced-aircraft-company-wp-json-root.json
-  - type: Authentication
-    url: authentication/advanced-aircraft-company-authentication.yml
-  - type: ErrorCatalog
-    url: errors/advanced-aircraft-company-problem-types.yml
-  - type: Conventions
-    url: conventions/advanced-aircraft-company-conventions.yml
-  - type: RateLimits
-    url: rate-limits/advanced-aircraft-company-rate-limits.yml
+  - type: Documentation
+    url: https://advancedaircraftcompany.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 common:
 - type: Website
   url: https://advancedaircraftcompany.com/
