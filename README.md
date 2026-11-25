@@ -121,7 +121,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 15.9** — emerging · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 15.1** — emerging · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
@@ -132,7 +132,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Developer ergonomics | 28.6 |
 | Access clarity | 0.0 |
 
-**Agent readiness 21.9** — agent-aware
+**Agent readiness 25.7** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -153,12 +153,16 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Dry Run Mode | — |
 | Delegated Identity | served (partial credit) |
 | Protected Resource Metadata | verified |
-| Dynamic Client Registration | — |
+| Dynamic Client Registration | yes |
 | Agentic Commerce | — |
 | Pagination Ratio | na |
 | Operation Distinctiveness | na |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/advanced-aircraft-company/](https://apis.io/providers/advanced-aircraft-company/).
 
